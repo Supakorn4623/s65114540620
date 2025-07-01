@@ -1,3 +1,16 @@
+1. เข้า Command Promt
+2. พิมพ์ gh repo clone Supakorn4623/65114540620
+
+3. 
+
+
+
+
+
+
+
+
+
 
 
 1.
