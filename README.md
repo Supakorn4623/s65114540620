@@ -15,7 +15,8 @@ setting.py แล้วแก้ไขตรง database ให้ตรงก�
 1. พิมพ์ python manage.py createsuperuser แล้วกรอกข้อมูลชื่อผู้ใช้
 2. แล้วเปลี่ยนโรล user เป็น owner พิมพ์  python manage.py shell
 
-3. ...
+3. พิมพ์ตามนี้
+   
 from django.contrib.auth import get_user_model
 
 User = get_user_model()
