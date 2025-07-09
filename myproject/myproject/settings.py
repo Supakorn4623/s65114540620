@@ -82,7 +82,7 @@ DATABASES = {
         'NAME': 'test',  # ชื่อฐานข้อมูลที่สร้างขึ้น
         'USER': 'root',        # ชื่อผู้ใช้ MySQL ของคุณ
         'PASSWORD': '123456',    # รหัสผ่าน MySQL ของคุณ
-        'HOST': 'localhost',            # หรือที่อยู่ของ MySQL server
+        'HOST': 'db',            # หรือที่อยู่ของ MySQL server
         'PORT': '3306',                 # พอร์ตที่ MySQL ทำงาน
     }
 }
