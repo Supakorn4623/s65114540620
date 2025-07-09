@@ -1,0 +1,65 @@
+Q1: ให้ตั้ง environment สำหรับโครงงาน Django และต้องรันด้วย docker-compose ช่วยอธิบายโจทย์ให้หน่อย
+
+ A1: ChatGPT ช่วยสรุปโจทย์และแผนการทำทั้งหมด เช่นแยก Git project, สร้าง Dockerfile, docker-compose.yml และสร้าง prompt log]
+
+───────────────────────────────────────────────
+ Q2: ยังไม่มี Dockerfile ช่วยเขียน Dockerfile สำหรับ Django ที่ใช้ MySQL ให้หน่อย
+
+ A2:
+# Dockerfile
+FROM python:3.10
+
+ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONUNBUFFERED 1
+
+WORKDIR /code
+
+COPY requirements.txt /code/
+RUN pip install --no-cache-dir -r requirements.txt
+
+COPY . /code/
+
+CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+───────────────────────────────────────────────
+ Q3: ช่วยเขียน docker-compose.yml สำหรับ Django + MySQL ที่รันได้ด้วยคำสั่ง docker-compose up -d
+   A3:
+services:
+  db:
+    image: mysql:8.0
+    container_name: mysql_db
+    restart: always
+    environment:
+      MYSQL_DATABASE: test
+      MYSQL_USER: root
+      MYSQL_PASSWORD: 123456
+      MYSQL_ROOT_PASSWORD: 123456
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+  web:
+    build: .
+    container_name: django_app
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - .:/code
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+
+volumes:
+  mysql_data:
+───────────────────────────────────────────────
+ Q4: โครงการ Django ยังไม่มี requirements.txt ต้องใส่อะไรบ้าง
+ A4:
+
+Django>=3.2,<5.0
+mysqlclient
+───────────────────────────────────────────────
+ Q5: รันแล้วขึ้น error TLS handshake timeout ตอน pull image ช่วยแก้หน่อย
+
+ A5: [ChatGPT แนะนำให้เช็คอินเทอร์เน็ต, รีสตาร์ท Docker, ตั้ง DNS เป็น 8.8.8.8, ใช้ docker pull แยก ฯลฯ]
+
+───────────────────────────────────────────────
