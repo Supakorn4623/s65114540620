@@ -1,4 +1,4 @@
-
+version: "3.9"
 
 services:
   db:
@@ -7,11 +7,9 @@ services:
     restart: always
     environment:
       MYSQL_DATABASE: test
-      MYSQL_USER: root
-      MYSQL_PASSWORD: 123456
       MYSQL_ROOT_PASSWORD: 123456
     ports:
-      - "3306:3306"
+      - "3307:3306"
     volumes:
       - mysql_data:/var/lib/mysql
 
