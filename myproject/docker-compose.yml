@@ -1,13 +1,11 @@
-version: "3.9"
-
 services:
   db:
     image: mysql:8.0
     container_name: mysql_db
     restart: always
     environment:
-      MYSQL_DATABASE: test
-      MYSQL_ROOT_PASSWORD: 123456
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
     ports:
       - "3307:3306"
     volumes:
@@ -16,13 +14,25 @@ services:
   web:
     build: .
     container_name: django_app
-    command: python manage.py runserver 0.0.0.0:8000
+
     volumes:
       - .:/code
     ports:
       - "8000:8000"
+    environment:
+      - DATABASE_HOST=db
+      - DATABASE_NAME=${MYSQL_DATABASE}
+      - DATABASE_USER=root
+      - DATABASE_PASSWORD=${MYSQL_ROOT_PASSWORD}  
     depends_on:
       - db
+    command: >
+       sh -c "echo 'Waiting for database...' &&
+         while ! nc -z db 3306; do sleep 1; done &&
+         echo 'Database is up!' &&
+         python manage.py makemigrations &&
+         python manage.py migrate &&
+         python manage.py runserver 0.0.0.0:8000"
 
 volumes:
   mysql_data:
