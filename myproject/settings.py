@@ -23,9 +23,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "django-insecure-ubnww8$#h!(m0^)__@dr#r^a6!l0^usbok35x1q+6skm69a5i!"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['202.28.49.122']
 
 
 # Application definition
@@ -78,12 +78,12 @@ WSGI_APPLICATION = "myproject.wsgi.application"
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'test',  # ชื่อฐานข้อมูลที่สร้างขึ้น
-        'USER': 'root',        # ชื่อผู้ใช้ MySQL ของคุณ
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'myproject',  # ชื่อฐานข้อมูลที่สร้างขึ้น
+        'USER': 'myprojectuser',        # ชื่อผู้ใช้ MySQL ของคุณ
         'PASSWORD': '123456',    # รหัสผ่าน MySQL ของคุณ
-        'HOST': 'db',            # หรือที่อยู่ของ MySQL server
-        'PORT': '3306',                 # พอร์ตที่ MySQL ทำงาน
+        'HOST': '202.28.49.122',         # หรือที่อยู่ของ MySQL server
+        'PORT': '5432',              # พอร์ตที่ MySQL ทำงาน
     }
 }
 
