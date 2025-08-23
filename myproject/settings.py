@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
-
+import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -79,14 +79,13 @@ WSGI_APPLICATION = "myproject.wsgi.application"
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'myproject',  # ชื่อฐานข้อมูลที่สร้างขึ้น
-        'USER': 'myprojectuser',        # ชื่อผู้ใช้ MySQL ของคุณ
-        'PASSWORD': '123456',    # รหัสผ่าน MySQL ของคุณ
-        'HOST': '202.28.49.122',         # หรือที่อยู่ของ MySQL server
-        'PORT': '5432',              # พอร์ตที่ MySQL ทำงาน
+        'NAME': os.environ.get('POSTGRES_DB', 'myproject'),
+        'USER': os.environ.get('POSTGRES_USER', 'myprojectuser'),
+        'PASSWORD': os.environ.get('POSTGRES_PASSWORD', '123456'),
+        'HOST': '202.28.49.122',  
+        'PORT': '5432',          
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators

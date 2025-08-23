@@ -10,7 +10,7 @@ services:
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     ports:
-      - "20447:5432"
+      - "20620:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
 
@@ -35,7 +35,7 @@ services:
          while ! nc -z db 5432; do sleep 1; done &&
          echo 'PostgreSQL is up!' &&
          python manage.py migrate &&
-         gunicorn project.wsgi:application --bind 0.0.0.0:8000"
+         gunicorn myproject.wsgi:application --bind 0.0.0.0:8000"
 
 volumes:
   postgres_data:
