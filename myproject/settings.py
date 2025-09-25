@@ -20,13 +20,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-ubnww8$#h!(m0^)__@dr#r^a6!l0^usbok35x1q+6skm69a5i!"
+SECRET_KEY = "dummysecret"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '10.80.21.37']
-
+ALLOWED_HOSTS = ["10.80.21.9"]
 
 # Application definition
 
@@ -121,7 +120,6 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
-STATIC_URL = "static/"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
@@ -136,3 +134,12 @@ AUTHENTICATION_BACKENDS = [
 STATICFILES_DIRS = [
     BASE_DIR / "static",  # กำหนดให้ Django รู้ว่าไฟล์ static อยู่ที่ไหน
 ]
+
+FORCE_SCRIPT_NAME = "/s65114540620"
+STATIC_URL = "/s65114540620/static/"
+MEDIA_URL = "/s65114540620/media/"
+STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+
+
+WSGI_APPLICATION = "myproject.wsgi.application"

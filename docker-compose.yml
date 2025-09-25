@@ -1,6 +1,16 @@
-version: '3.9'
-
 services:
+  traefik:
+    image: traefik:v3.0
+    command:
+      - "--api.insecure=true"
+      - "--providers.docker=true"
+      - "--entrypoints.web.address=:80"
+    ports:
+      - "80:80"
+      - "8090:8080"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+
   db:
     image: postgres:14
     container_name: postgres_db
@@ -9,8 +19,6 @@ services:
       POSTGRES_DB: ${POSTGRES_DB}
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-    ports:
-      - "20620:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
 
@@ -20,8 +28,6 @@ services:
     restart: always
     volumes:
       - .:/code
-    ports:
-      - "10620:8000"
     environment:
       - DB_HOST=db
       - DB_NAME=${POSTGRES_DB}
@@ -30,12 +36,11 @@ services:
       - DB_PORT=5432
     depends_on:
       - db
-    command: >
-       sh -c "echo 'Waiting for PostgreSQL...' &&
-         while ! nc -z db 5432; do sleep 1; done &&
-         echo 'PostgreSQL is up!' &&
-         python manage.py migrate &&
-         gunicorn myproject.wsgi:application --bind 0.0.0.0:8000"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.student.rule=PathPrefix(`/s65114540620`)"
+      - "traefik.http.routers.student.entrypoints=web"
+      - "traefik.http.services.student.loadbalancer.server.port=8000"
 
 volumes:
   postgres_data:
