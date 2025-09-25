@@ -5,6 +5,7 @@ services:
       - "--api.insecure=true"
       - "--providers.docker=true"
       - "--entrypoints.web.address=:80"
+      - "--providers.file.filename=/etc/traefik/traefik.yml"
     ports:
       - "80:80"
       - "8090:8080"
